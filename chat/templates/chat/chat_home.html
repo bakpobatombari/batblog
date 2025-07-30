@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Chats{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-12 bg-gradient-to-br from-blue-900 via-blue-800 to-gray-900 p-8 rounded-2xl shadow-2xl border border-blue-900">
+    <h1 class="text-3xl font-extrabold text-white mb-6">Start a Chat</h1>
+    <ul class="space-y-4">
+        {% for user in users %}
+            <li>
+                <a href="{% url 'chat_room' user.username %}" class="block px-6 py-3 bg-blue-700 text-white rounded-lg font-semibold shadow hover:bg-blue-800 transition">Chat with {{ user.username }}</a>
+            </li>
+        {% empty %}
+            <li class="text-blue-200">No other users available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

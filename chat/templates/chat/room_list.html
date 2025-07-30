@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Chats{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10">
+    <h1 class="text-3xl font-bold mb-6">Your Chats</h1>
+    <ul class="space-y-4 mb-10">
+        {% for room in rooms %}
+            <li class="p-4 bg-white/80 rounded shadow flex items-center justify-between">
+                <span>
+                    {% for participant in room.participants.all %}
+                        {% if participant != user %}{{ participant.username }}{% endif %}
+                    {% endfor %}
+                </span>
+                <a href="{% url 'chat_room' room.id %}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Open</a>
+            </li>
+        {% empty %}
+            <li>No chats yet.</li>
+        {% endfor %}
+    </ul>
+    <h2 class="text-2xl font-semibold mb-4">Start a New Chat</h2>
+    <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {% for u in users %}
+            <li>
+                <a href="{% url 'start_chat' u.id %}" class="block p-4 bg-blue-900 text-white rounded-lg shadow hover:bg-blue-700 transition text-center font-semibold">{{ u.username }}</a>
+            </li>
+        {% empty %}
+            <li>No other users found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} User{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto mt-10 p-8 rounded shadow">
+  <h2 class="text-2xl font-bold mb-6">{{ action }} User</h2>
+  <form method="post" class="space-y-4 bat-input">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div>
+      <label for="id_username" class="block text-light-700">Username</label>
+      {{ form.username }}
+      {% if form.username.errors %}<p class="text-red-600 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
+    </div>
+    <div>
+      <label for="id_email" class="block text-light-700">Email</label>
+      {{ form.email }}
+      {% if form.email.errors %}<p class="text-red-600 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+    </div>
+    {% if form.password %}
+    <div>
+      <label for="id_password" class="block text-light-700">Password</label>
+      {{ form.password }}
+      {% if form.password.errors %}<p class="text-red-600 text-xs mt-1">{{ form.password.errors.0 }}</p>{% endif %}
+    </div>
+    {% endif %}
+    <div class="flex gap-4">
+      <div>
+        <label for="id_is_active" class="inline-flex items-center">
+          {{ form.is_active }} <span class="ml-2">Active</span>
+        </label>
+      </div>
+      <div>
+        <label for="id_is_staff" class="inline-flex items-center">
+          {{ form.is_staff }} <span class="ml-2">Staff</span>
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded">{{ action }}</button>
+  </form>
+</div>
+{% endblock %}

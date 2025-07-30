@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Chat with {{ other_user.username }}{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-14 bg-gradient-to-br from-blue-900 via-blue-800 to-gray-900 p-8 rounded-2xl shadow-2xl border border-blue-900">
+    <h1 class="text-3xl font-extrabold text-white mb-6 text-center">Chat with <span class="text-blue-200">{{ other_user.username }}</span></h1>
+    <div id="chat-messages" class="h-96 overflow-y-auto bg-white/80 rounded-xl p-6 mb-6 flex flex-col gap-3 border border-blue-200">
+        {% for message in messages %}
+            <div class="flex {% if message.sender == request.user %}justify-end{% else %}justify-start{% endif %}">
+                <div class="max-w-[70%] px-4 py-2 rounded-2xl shadow-lg text-base font-medium
+                    {% if message.sender == request.user %}
+                        bg-blue-600 text-white rounded-br-none
+                    {% else %}
+                        bg-gray-200 text-gray-900 rounded-bl-none
+                    {% endif %}">
+                    {{ message.content }}
+                    <span class="block text-xs text-gray-400 mt-1 text-right">{{ message.timestamp|date:"H:i" }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <form id="chat-form" class="flex gap-3">
+        <input type="text" id="chat-input" class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90" placeholder="Type a message...">
+        <button type="submit" class="px-8 py-3 bg-blue-600 text-white rounded-xl font-semibold shadow hover:bg-blue-700 transition">Send</button>
+    </form>
+</div>
+<script>
+const chatInput = document.getElementById('chat-input');
+const chatForm = document.getElementById('chat-form');
+const chatMessages = document.getElementById('chat-messages');
+const username = "{{ request.user.username }}";
+
+const roomId = {{ room.id }};
+const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+const chatSocket = new WebSocket(
+    wsScheme + '://' + window.location.host + '/ws/chat/' + roomId + '/'
+);
+
+
+chatSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    const div = document.createElement('div');
+    div.className = 'flex ' + (data.sender === username ? 'justify-end' : 'justify-start');
+    div.innerHTML = `<div class="max-w-[70%] px-4 py-2 rounded-2xl shadow-lg text-base font-medium ${data.sender === username ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-200 text-gray-900 rounded-bl-none'}">
+        ${data.message}
+        <span class="block text-xs text-gray-400 mt-1 text-right">now</span>
+    </div>`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+chatForm.onsubmit = function(e) {
+    e.preventDefault();
+    const message = chatInput.value;
+    if (message.trim() === '') return;
+chatSocket.send(JSON.stringify({
+    'message': message
+}));
+    chatInput.value = '';
+};
+</script>
+{% endblock %}
