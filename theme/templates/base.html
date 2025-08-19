@@ -9,61 +9,59 @@
     {% tailwind_css %}
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 font-sans text-gray-100">
+<body class="min-h-screen bg-gradient-to-r from-[#060533] to-[#3a0606] transition">
     <!-- Navbar Start -->
-    <nav class="sticky top-0 z-50 bg-gradient-to-r from-blue-900 via-blue-800 to-gray-900 border-b shadow-lg px-6 py-3 flex items-center justify-between text-white">
+    <nav class="sticky flex h-13 justify-center items-center py-2 bg-[#01093a] text-white">
         <div class="flex items-center gap-3">
             {% if user.is_staff %}
-            <a href="/bat/admin/users" class="font-bold text-xl text-white hover:text-blue-200">Dashboard</a>
+            <a href="/bat/admin/users" class="font-bold text-xl left-4 absolute text-white hover:text-blue-200">Dashboard</a>
             {% else%}
-            <a href="#" class="font-extrabold text-2xl tracking-tight text-white hover:text-blue-300">Batcamp</a>
+            <a href="#" class="font-extrabold text-2xl tracking-tight left-4 absolute text-white hover:text-blue-300">Batcamp</a>
             {% endif %}
         </div>
         <div class="hidden md:flex space-x-8 items-center">
-            <a href="/" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-blue-700 hover:text-white transition">Home</a>
-            <a href="/" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-blue-700 hover:text-white transition">About</a>
-            <a href="/" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-blue-700 hover:text-white transition">Contact</a>
+            <a href="/" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-cyan-600 hover:text-white transition">Home</a>
+            <a href="{% url 'about' %}" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-cyan-600 hover:text-white transition">About</a>
+            <a href="/" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-cyan-600 hover:text-white transition">Contact</a>
             {% if user.is_authenticated %}
                 <a href="{% url 'blog_list' %}" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-blue-700 hover:text-white transition">Blogs</a>
-                <a href="{% url 'chat_room_list' %}" class="px-4 py-2 rounded-lg text-base font-semibold text-white hover:bg-blue-700 hover:text-white transition">Chats</a>
                 <span class="ml-4 font-semibold text-blue-200 capitalize">{{ user.username }}</span>
                 <form method="post" action="{% url 'logout' %}" class="inline ml-2">{% csrf_token %}
-                    <button type="submit" class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 font-semibold transition">Logout</button>
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-cyan-400 text-white hover:bg-red-700 font-semibold transition">Logout</button>
                 </form>
             {% else %}
-                <a href="{% url 'login' %}" class="ml-4 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold transition">Login</a>
-                <a href="{% url 'register' %}" class="ml-2 px-4 py-2 rounded-lg border border-blue-200 text-blue-200 hover:bg-blue-900 font-semibold transition">Sign Up</a>
+                <a href="{% url 'login' %}" class="ml-4 px-4 py-2 rounded-lg bg-cyan-600 text-white hover:bg-cyan-700 font-semibold transition">Login</a>
+                <a href="{% url 'register' %}" class="ml-2 px-4 py-2 rounded-lg border border-blue-200 text-cyan-200 hover:bg-cyan-700 font-semibold transition">Sign Up</a>
             {% endif %}
         </div>
         <!-- Mobile menu button -->
         <div class="md:hidden relative">
             <input type="checkbox" id="menu-toggle" class="hidden peer">
-            <label for="menu-toggle" class="cursor-pointer p-2 rounded hover:bg-blue-700">
+            <label for="menu-toggle" class="cursor-pointer p-2 rounded hover:bg-blue-700 ">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </label>
-            <ul class="absolute right-0 mt-2 w-48 bg-gradient-to-br from-blue-900 via-blue-800 to-gray-900 border rounded-xl shadow-lg py-2 flex flex-col space-y-1 opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-200">
-                <li><a href="/" class="block px-4 py-2 rounded-lg text-white hover:bg-blue-700 hover:text-white transition">Home</a></li>
-                <li><a href="#" class="block px-4 py-2 rounded-lg text-white hover:bg-blue-700 hover:text-white transition">About</a></li>
-                <li><a href="#" class="block px-4 py-2 rounded-lg text-white hover:bg-blue-700 hover:text-white transition">Contact</a></li>
+            <ul class="absolute right-0 mt-2 w-48 bg-cyan-900 border rounded-xl shadow-lg py-2 flex flex-col space-y-1 opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-200">
+                <li><a href="/" class="block px-4 py-2 rounded-lg text-white hover:bg-cyan-600 hover:text-white transition">Home</a></li>
+                <li><a href="{% url 'about' %}" class="block px-4 py-2 rounded-lg text-white hover:bg-cyan-600 hover:text-white transition">About</a></li>
+                <li><a href="#" class="block px-4 py-2 rounded-lg text-white hover:bg-cyan-600 hover:text-white transition">Contact</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'blog_list' %}" class="block px-4 py-2 rounded-lg text-white hover:bg-blue-700 hover:text-white transition">Blogs</a></li>
-                    <li><a href="{% url 'chat_room_list' %}" class="block px-4 py-2 rounded-lg text-white hover:bg-blue-700 hover:text-white transition">Chats</a></li>
+                    <li><a href="{% url 'blog_list' %}" class="block px-4 py-2 rounded-lg text-white hover:bg-blue-700 hover:text-white transition">Blogs</a></li
                     <li><span class="block px-4 py-2 font-semibold text-blue-200">{{ user.username }}</span></li>
                     <li>
                         <form method="post" action="{% url 'logout' %}">{% csrf_token %}
-                            <button type="submit" class="block w-full px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 font-semibold text-left transition">Logout</button>
+                            <button type="submit" class="block w-full px-4 py-2 rounded-lg bg-cyan-600 text-white hover:bg-red-700 font-semibold text-left transition">Logout</button>
                         </form>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'login' %}" class="block px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold transition">Login</a></li>
-                    <li><a href="{% url 'register' %}" class="block px-4 py-2 rounded-lg border border-blue-200 text-blue-200 hover:bg-blue-900 font-semibold transition">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}" class="block px-4 py-2 rounded-lg bg-cyan-600 text-white hover:bg-cyan-700 font-semibold transition">Login</a></li>
+                    <li><a href="{% url 'register' %}" class="block px-4 py-2 rounded-lg border border-cyan-200 text-cyan-200 hover:bg-cyan-900 font-semibold transition">Sign Up</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
     <!-- Navbar End -->
 
-    <main class="min-h-[80vh] flex flex-col justify-center items-center px-2 py-8">
+    <main class="min-h-[80vh]  bg-gradient-to-r from-[#060533] to-[#3a0606]">
         {% block content %}
         {% endblock %}
     </main>

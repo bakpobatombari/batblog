@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} About {% endblock %}
+
+{% block content%}
+
+    <section class="w-full grid grid-cols-2 gap-10 h-[90vh]  bg-gradient-to-r from-[#060533] to-[#3a0606] p-5">
+        
+        <div class="grid grid-cols-1">
+            <div class="h-full text-black  w-full bg-white rounded-xl p-4">
+                <h1></h1>
+                <span>Quos dolores totam est accusantium ab architecto fugiat nobis? Explicabo in tempora assumenda repellat cumque vitae ullam est, magnam quia saepe sapiente officiis commodi cupiditate. Qui aliquid quia, ipsa laborum eius consequuntur facere dicta eligendi exercitationem labore placeat molestias? Provident facilis aspernatur debitis praesentium?</span>
+            </div>
+        </div>
+
+          <div class="grid grid-cols-2 grid-rows gap-x-10">
+          {% for content in contents %}
+              <div class="h-[fit-content]  text-black w-full bg-white bg-white rounded-xl p-4">
+                <h1 class="font-bold">{{ content.title }}</h1>
+                <span>{{content.content}}</span>
+            </div>
+          {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ action }} User{% endblock %}
 {% block content %}
-<div class="max-w-lg mx-auto mt-10 p-8 rounded shadow">
+<div class="max-w-lg mx-auto mt-10 p-8 bg-gray-800 rounded-xl shadow">
   <h2 class="text-2xl font-bold mb-6">{{ action }} User</h2>
   <form method="post" class="space-y-4 bat-input">
     {% csrf_token %}

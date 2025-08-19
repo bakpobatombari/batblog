@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}User Management{% endblock %}
 {% block content %}
-<div class="max-w-5xl mx-auto mt-14 bg-gradient-to-br from-blue-900 via-blue-800 to-gray-900 p-8 rounded-2xl shadow-2xl border border-blue-900">
+<div class="max-w-5xl mx-auto mt-14 bg-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-700">
   <div class="flex justify-between items-center mb-8">
     <h2 class="text-3xl font-extrabold text-white drop-shadow">User Management</h2>
     <a href="{% url 'admin_user_add' %}" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow hover:bg-blue-700 transition">Add User</a>
@@ -42,10 +42,10 @@
             {% if user.is_active %}
               <form method="post" action="{% url 'admin_user_barn' user.id %}" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="px-3 py-1 bg-gray-700 text-white rounded-lg font-semibold shadow hover:bg-gray-900 transition">Barn</button>
+                <button type="submit" class="px-3 py-1 bg-gray-700 text-white rounded-lg font-semibold shadow hover:bg-gray-900 transition">Ban</button>
               </form>
             {% else %}
-              <span class="px-3 py-1 bg-gray-400 text-white rounded-lg font-semibold">Barned</span>
+              <span class="px-3 py-1 bg-gray-400 text-white rounded-lg font-semibold">Baned</span>
             {% endif %}
           </td>
         </tr>

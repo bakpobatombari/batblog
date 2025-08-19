@@ -7,8 +7,8 @@
     <div class="mb-8 text-blue-100 text-lg leading-relaxed">{{ post.content|linebreaks }}</div>
     <div class="flex flex-wrap gap-4 items-center">
         {% if user == post.author or user.is_staff %}
-            <a href="{% url 'blog_edit' post.slug %}" class="px-6 py-2 bg-yellow-500 text-white rounded-lg font-semibold shadow hover:bg-yellow-600 transition">Edit</a>
-            <a href="{% url 'blog_delete' post.slug %}" class="px-6 py-2 bg-red-600 text-white rounded-lg font-semibold shadow hover:bg-red-700 transition">Delete</a>
+            <a href="{% url 'blog_edit' post.slug %}" class="px-6 py-2 bg-yellow-600 text-white rounded-lg font-semibold shadow hover:bg-green-600 transition">Edit</a>
+            <a href="{% url 'blog_delete' post.slug %}" class="px-6 py-2 bg-red-800 text-white rounded-lg font-semibold shadow hover:bg-red-900 transition">Delete</a>
         {% endif %}
         <a href="{% url 'blog_list' %}" class="px-6 py-2 bg-blue-700 text-white rounded-lg font-semibold shadow hover:bg-blue-800 transition">Back to Blog</a>
     </div>

@@ -6,3 +6,4 @@ django-tailwind
 psycopg2-binary
 Pillow
 asgiref
+whitenoise
